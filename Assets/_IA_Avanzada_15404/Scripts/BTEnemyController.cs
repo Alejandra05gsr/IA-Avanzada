@@ -8,12 +8,36 @@ public class BTEnemyController : MonoBehaviour
     public float fleeRange = 3f;
     public float health = 100f;
 
+    Vector3 patrolPoint;
+
+    public float patrolRange = 15f;
+    public float arrivalDistance = 0.5f;
+    private bool hasPatrolPoint = false;
+
     private MovementController movement;
 
     void Start()
     {
         movement = this.GetComponent<MovementController>();
     }
+
+
+    //Elegir un punto aleatorio para patrullar
+    //Si el punto aleatorio es valido, mover al enemigo hacia ese punto
+    //Si el punto aleatorio no es valido, elegir otro punto aleatorio
+
+    [Task]
+    void ChoosePatrolPoint()
+    {
+        patrolPoint = transform.position + new Vector3(Random.Range(-patrolRange, patrolRange),0,
+        Random.Range(-patrolRange, patrolRange));
+
+        hasPatrolPoint = true;
+
+        Task.current.Succeed();
+    }
+
+
 
 
     [Task]
@@ -32,9 +56,15 @@ public class BTEnemyController : MonoBehaviour
     [Task]
     void Patrol()
     {
-        transform.Rotate(0, 50 * Time.deltaTime, 0);
-        Task.current.Succeed();
+        movement.MoveTowards(patrolPoint);
+
+        if (Vector3.Distance(transform.position, patrolPoint) < arrivalDistance)
+        {
+            hasPatrolPoint = false;
+            Task.current.Succeed();
+        }
     }
+
 
     [Task]
     void Chase()
