@@ -1,8 +1,8 @@
 tree("Root")
 	fallback
 		tree "TFlee"
-		tree "TPatrol"
-		Patrol
+		tree "TChase"
+		tree "TChoosePoint"
 
 tree("TFlee")
 		sequence
@@ -10,7 +10,13 @@ tree("TFlee")
 			IsPlayerInRange
 			Flee
 
-tree("TPatrol")
+tree("TChase")
 		sequence
 			IsPlayerInRange
 			Chase
+
+tree("TChoosePoint")
+		sequence
+			ChoosePatrolPoint
+			Patrol
+

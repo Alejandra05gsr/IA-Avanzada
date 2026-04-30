@@ -970,6 +970,8 @@ MonoBehaviour:
   detectionRange: 10
   fleeRange: 3
   health: 100
+  patrolRange: 15
+  arrivalDistance: 0.5
 --- !u!114 &2078121919
 MonoBehaviour:
   m_ObjectHideFlags: 0
