@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
 
     public float damage = 10f;
-    public SimpleEnemyController sEnemy;
+    public FuzzyEnemyController sEnemy;
 
     void Start()
     {
